@@ -13,7 +13,7 @@ from tkinter import *
 from PIL import ImageTk,Image
 from tkinter.messagebox import showinfo
 from tkinter import ttk
-import application, DES,setup
+import application, setup
 
 
 class window(Tk):
@@ -88,10 +88,12 @@ class window(Tk):
         windowname.geometry(f"800x600+{positionX}+{positionY}")
         self.DES_check.add(datatype)
         # ANCHOR data display
+        
         frame = ttk.Frame(windowname)
         frame.grid(column=0,row=1,**option1,columnspan=2)
         img = ImageTk.PhotoImage(Image.open(f"./src/{datatype}.png"))
         panel = Label(frame, text="Hello",width = 50).grid(column=0,row=1,**option1)
+        
         # Storing new data
         input = StringVar()
         chatLog = StringVar()

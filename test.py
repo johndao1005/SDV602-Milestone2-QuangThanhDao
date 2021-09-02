@@ -1,88 +1,39 @@
-import tkinter as tk
-from tkinter import ttk
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.widgets import Button
+
+freqs = np.arange(2, 20, 3)
+
+fig, ax = plt.subplots()
+plt.subplots_adjust(bottom=0.2)
+t = np.arange(0.0, 1.0, 0.001)
+s = np.sin(2*np.pi*freqs[0]*t)
+l, = plt.plot(t, s, lw=2)
 
 
-def create_input_frame(container):
+class Index:
+    ind = 0
 
-    frame = ttk.Frame(container)
+    def next(self, event):
+        self.ind += 1
+        i = self.ind % len(freqs)
+        ydata = np.sin(2*np.pi*freqs[i]*t)
+        l.set_ydata(ydata)
+        plt.draw()
 
-    # grid layout for the input frame
-    frame.columnconfigure(0, weight=1)
-    frame.columnconfigure(0, weight=3)
+    def prev(self, event):
+        self.ind -= 1
+        i = self.ind % len(freqs)
+        ydata = np.sin(2*np.pi*freqs[i]*t)
+        l.set_ydata(ydata)
+        plt.draw()
 
-    # Find what
-    ttk.Label(frame, text='Find what:').grid(column=0, row=0, sticky=tk.W)
-    keyword = ttk.Entry(frame, width=30)
-    keyword.focus()
-    keyword.grid(column=1, row=0, sticky=tk.W)
+callback = Index()
+axprev = plt.axes([0.7, 0.05, 0.1, 0.075])
+axnext = plt.axes([0.81, 0.05, 0.1, 0.075])
+bnext = Button(axnext, 'Next')
+bnext.on_clicked(callback.next)
+bprev = Button(axprev, 'Previous')
+bprev.on_clicked(callback.prev)
 
-    # Replace with:
-    ttk.Label(frame, text='Replace with:').grid(column=0, row=1, sticky=tk.W)
-    replacement = ttk.Entry(frame, width=30)
-    replacement.grid(column=1, row=1, sticky=tk.W)
-
-    # Match Case checkbox
-    match_case = tk.StringVar()
-    match_case_check = ttk.Checkbutton(
-        frame,
-        text='Match case',
-        variable=match_case,
-        command=lambda: print(match_case.get()))
-    match_case_check.grid(column=0, row=2, sticky=tk.W)
-
-    # Wrap Around checkbox
-    wrap_around = tk.StringVar()
-    wrap_around_check = ttk.Checkbutton(
-        frame,
-        variable=wrap_around,
-        text='Wrap around',
-        command=lambda: print(wrap_around.get()))
-    wrap_around_check.grid(column=0, row=3, sticky=tk.W)
-
-    for widget in frame.winfo_children():
-        widget.grid(padx=0, pady=5)
-
-    return frame
-
-
-def create_button_frame(container):
-    frame = ttk.Frame(container)
-
-    frame.columnconfigure(0, weight=1)
-
-    ttk.Button(frame, text='Find Next').grid(column=0, row=0)
-    ttk.Button(frame, text='Replace').grid(column=0, row=1)
-    ttk.Button(frame, text='Replace All').grid(column=0, row=2)
-    ttk.Button(frame, text='Cancel').grid(column=0, row=3)
-
-    for widget in frame.winfo_children():
-        widget.grid(padx=0, pady=3)
-
-    return frame
-
-
-def create_main_window():
-
-    # root window
-    root = tk.Tk()
-    root.title('Replace')
-    root.geometry('400x150')
-    root.resizable(0, 0)
-    # windows only (remove the minimize/maximize button)
-    root.attributes('-toolwindow', True)
-
-    # layout on the root window
-    root.columnconfigure(0, weight=4)
-    root.columnconfigure(1, weight=1)
-
-    input_frame = create_input_frame(root)
-    input_frame.grid(column=0, row=0)
-
-    button_frame = create_button_frame(root)
-    button_frame.grid(column=1, row=0)
-
-    root.mainloop()
-
-
-if __name__ == "__main__":
-    create_main_window()
+plt.show()
