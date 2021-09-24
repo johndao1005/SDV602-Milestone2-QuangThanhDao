@@ -33,7 +33,7 @@ def draw_graph(windowname, datatype):
     toolbar.update()
     canvas.get_tk_widget().grid(column=0, row=1,rowspan=4)  # create canvas
     toolbar.grid(column=0, row=6)  # create tool bar
-
-root = Tk()
-draw_graph(root,"location")
-root.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    draw_graph(root,"location")
+    root.mainloop()

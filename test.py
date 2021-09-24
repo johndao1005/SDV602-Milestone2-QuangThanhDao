@@ -18,14 +18,37 @@ import pandas as pd
 import numpy as np
 
 large_font = ("Verdana",12)
+normal_font = ("Verdana",10)
+small_font = ("Verdana",8)
 style.use("ggplot")# other option dark_background,
 
 f = Figure()
 a = f.add_subplot(111) # 111 is plot number 1 and 121 is plot number 2
+
+exchange = "BTC-e"
+DatCounter = 9000
+programName = "btce"
+
+def changeExchange(toWhat,pn):
+    global exchange
+    global DatCounter
+    global programName
+    exchange = toWhat
+    programName = pn
+    DatCounter = 9000
+    
+
+def popupmsg(msg):
+    popup = tk.Tk()
+    popup.wm_title("!")
+    label = ttk.Label(popup, text=msg, font=normal_font)
+    label.pack(side="top",fill="x",pady=10)
+    button1 = ttk.Button(popup, text="Okay", command = popup.destroy)
+    popup.mainloop()
         
 
 def animate(i):
-    # first version
+    #ANCHOR first version
     # pullData = open("sample_data.txt","r").read()
     # dataList = pullData.split("\n")
     # xList = []
@@ -38,7 +61,20 @@ def animate(i):
     # a.clear()
     # a.plot(xList,yList)
     
+    #read data
+    #with open(datasource, "r") as data:
+    #   dataList = data.read().split("\n")
+    #   for eachLine in dataList:
+    #if len(eachLine)>1:
+    #         x,y = eachLine.split(",")
+    #         xList.append(int(x))
+    #         yList.append(int(y))
+    #append data
+    # with open(datasource, "a") as data:
+    #   
     
+    
+    #ANCHOR
     # API link
     # dataLink = 'https://btc-e.com/api/3/trades/btc_usd?limit=2000'#add parameter after the api link with ? and the paramter like limit = 2000
     # using urllib to open datalink
@@ -121,7 +157,21 @@ class App(tk.Tk):
         menubar = tk.Menu(container)
         filemenu = tk.Menu(menubar, tearoff = 0)
         filemenu.add_command(label = "Save settings",command = lambda: popupmsg("Not support yet"))
+        filemenu.add_separator()
+        filemenu.add_command(label = "exit",command = quit)
+        menubar.add_cascade(label = "File",menu=filemenu)
         
+        exchangeChoice = tk.Menu(menubar,tearoff=1)
+        exchangeChoice.add_command(label="BTC-e",
+                                   command = lambda: changeExchange("BTC-e","btce"))
+        exchangeChoice.add_command(label="Bitfinex",
+                                   command = lambda: changeExchange("Bitfinex","bitfinex"))
+        exchangeChoice.add_command(label="Bitstamp",
+                                   command = lambda: changeExchange("Bitstamp","bitstamp"))
+        menubar.add_cascade(label ="exchange" ,menu =exchangeChoice)
+        
+        
+        tk.Tk.config(self,menu=menubar)
         
         self.frames ={}
         for Frame in (StartPage,PageOne,PageTwo,PageThree):
@@ -207,5 +257,5 @@ class PageThree(tk.Frame):
 if __name__ == "__main__":    
     app = App()
     app.geometry("1280x720")
-    ani = animation.FuncAnimation(f,animate, interval = 1000)
+    ani = animation.FuncAnimation(f,animate, interval = 5000)
     app.mainloop()
