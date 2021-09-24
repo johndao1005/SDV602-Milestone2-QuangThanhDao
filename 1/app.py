@@ -4,12 +4,13 @@ With the application user can view data in graph with matplotlib while enjoy the
 
 """
 
-from view.dataExplore import window
+from view.menu import window
 
 if __name__ == '__main__':
     """
     Initiate the app
     """
     dataView = window()
+    dataView.mainloop()
     pass
     
