@@ -145,7 +145,7 @@ class window(Tk):
             current.destroy()
             next()
         def close_DES():
-            windowname.destroy()
+            windowname.destroy  ()
             self.DES_check.discard(datatype)
         windowname.protocol("WM_DELETE_WINDOW",close_DES)
         windowname.mainloop()
