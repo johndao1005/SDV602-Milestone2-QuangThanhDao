@@ -3,10 +3,13 @@ from tkinter import ttk
 import view.setup as setup
 from model.chart_create import draw_graph
 
-class DES(Toplevel):
+
+class DES(Tk):
     def __init__(self, parent, datatype, next, prev,positionX ,positionY): #change to **kwrags
         super().__init__()
-        parent.check = True
+        Frame()
+        self.parent =parent
+        self.datatype = datatype
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
         label = Label(self, text=f"White shark {datatype} data").grid(column=0,row=0,**setup.pad20,columnspan=3)
@@ -34,11 +37,11 @@ class DES(Toplevel):
         frame2.grid(column=2,row=3,**setup.pad20,sticky=NSEW)
         button = ttk.Button(frame2,
                         text="Next",
-                        command=lambda: changeWindow(self,next)
+                        command=lambda: self.changeWindow(next)
                         ).grid(column=0,row=4,**setup.pad20)
         button = ttk.Button(frame2,
                         text="Previous",
-                        command=lambda: changeWindow(self,prev)
+                        command=lambda: self.changeWindow(prev)
                         ).grid(column=1,row=4,**setup.pad20)
         button = ttk.Button(frame2,
                         text="Upload",
@@ -49,7 +52,7 @@ class DES(Toplevel):
                         command=lambda: chat()
                         ).grid(column=0,row=5,**setup.pad20)
         Location_self = ttk.Button(frame2,
-                              text="Pan",
+                              text="upload Data",
                               command=lambda: chat()
                               ).grid(column=1,row=6,**setup.pad20)
         # button = Button(self,
@@ -58,5 +61,15 @@ class DES(Toplevel):
         #                 ).grid(column=0,row=0,**setup.pad20)
         button = ttk.Button(self,
                         text="Quit",
-                        command=lambda: close_DES()
+                        command=lambda: self.close_DES()
                         ).grid(column=2,row=6,**setup.pad20,sticky=SE)
+        self.protocol("WM_DELETE_WINDOW",self.close_DES)
+        self.mainloop()
+        
+    def changeWindow(self,newWindow):
+        self.destroy()
+        newWindow()
+        
+    def close_DES(self):
+        self.destroy()
+        self.parent.DES_check.discard(self.datatype)

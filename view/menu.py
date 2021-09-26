@@ -12,8 +12,8 @@ from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter import ttk
 import view.setup as setup
-from controller.menu import logout
 from view.DES import DES
+from view.login import Login
 
 
 class Menu(Tk):
@@ -34,7 +34,7 @@ class Menu(Tk):
         self.DES_check = set()
         self.check = False
         # ANCHOR first label frame
-        label = Label(self, text=f"Welcome {self.user},\n Please select one data explorer screen from below").grid(column=0,row=1,**option2)
+        label = Label(self, text=f"Welcome {self.user},\n Please select one data explorer screen from below").grid(column=0,row=1,**setup.pad10)
         lf = ttk.LabelFrame(self, text ="Data View")
         lf.grid(column=0,row=2,**setup.pad20)
         DES_Btn = ttk.Button(lf,
@@ -62,13 +62,18 @@ class Menu(Tk):
                             ).grid(column=1,row=4,**setup.pad10)
         signout_Btn = ttk.Button(lf2,
                             text="Sign out",
-                            command = lambda:logout
+                            command = lambda:self.signout()
                             ).grid(column=2,row=4,**setup.pad10)
         quit_Btn = ttk.Button(self,
                             text="Exit",
                             command = lambda:self.destroy()
                             ).grid(column=0,row=5,**setup.pad10,sticky=SE)
-
+    def signout(self):
+        self.destroy()
+        Login()
+        
+        
+        
     def DES_window(self,windowname, datatype, next, prev,positionX ,positionY):
         windowname = Toplevel()
         windowname.title(setup.app_name)
@@ -152,7 +157,7 @@ class Menu(Tk):
             
     def DES3_window(self):
         if "feature" not in self.DES_check:
-            DES(self.DES3,'feature',self.DES1_window,self.DES2_window,500,000)
+            DES(self,'feature',self.DES1_window,self.DES2_window,500,000)
             
     def upload_window(self,user="user"):
         self.upload = Toplevel()
