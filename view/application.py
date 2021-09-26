@@ -1,12 +1,11 @@
 import tkinter as tk
 from tkinter import ttk
-from view.DES1 import DES1
+from view.DES1 import DES1,DES2,DES3
 import view.setup as setup
 
 class DES(tk.Tk):
-    def __init__(self,parent,*args,**kwargs):
+    def __init__(self,*args,**kwargs):
         tk.Tk.__init__(self,*args,**kwargs)
-        super().__init__()
         container =tk.Frame()
         container.pack(side = 'top',fill = 'both', expand = True)
         container.grid_rowconfigure(0,weight = 1)
@@ -14,10 +13,10 @@ class DES(tk.Tk):
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
         self.frames ={}
-        # for DES in (DES1,DES2,DES3):
-        #     frame = DES(container, self)
-        #     self.frames[DES] = frame
-        #     frame.grid(row=0,column = 0, sticky = "nsew")
+        for DES in (DES1,DES2,DES3):
+            frame = DES(container, self)
+            self.frames[DES] = frame
+            frame.grid(row=0,column = 0, sticky = "nsew")
         self.show_frame(DES1)
         
     def show_frame(self,cont):
