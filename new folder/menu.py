@@ -7,16 +7,15 @@ destroy(): destroy the current window
 withdraw(): hide the current window
 Label(): can be used to display text, image
 Entry(): can be used to create text box
+
 """
 from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter import ttk
-import view.setup as setup
-from controller.menu import logout
-from view.DES import DES
+import application, setup, chart_create
 
 
-class Menu(Tk):
+class window(Tk):
     def __init__(self,name="user"):
         """start an instance of the application which present the menu for user to interact with the database and import the
         user login details from database
@@ -28,7 +27,10 @@ class Menu(Tk):
         super().__init__()
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
-        label = Label(self, text="Application Menu").grid(column=0,row=0,**setup.pad20)
+        option3 = setup.pad20
+        option1 = setup.pad10
+        option2 = setup.pad5
+        label = Label(self, text="Application Menu").grid(column=0,row=0,**option3)
         self.geometry("330x380+50+50")
         #ANCHOR control the number of upload and DES window
         self.DES_check = set()
@@ -36,39 +38,45 @@ class Menu(Tk):
         # ANCHOR first label frame
         label = Label(self, text=f"Welcome {self.user},\n Please select one data explorer screen from below").grid(column=0,row=1,**option2)
         lf = ttk.LabelFrame(self, text ="Data View")
-        lf.grid(column=0,row=2,**setup.pad20)
+        lf.grid(column=0,row=2,**option3)
         DES_Btn = ttk.Button(lf,
                             text="Location",
                             command = lambda:self.DES1_window()
-                            ).grid(column=0,row=3,**setup.pad10)
+                            ).grid(column=0,row=3,**option1)
         DES2_Btn = ttk.Button(lf,
                             text="Gender",
                             command = lambda:self.DES2_window()
-                            ).grid(column=1,row=3,**setup.pad10)
+                            ).grid(column=1,row=3,**option1)
         DES3_Btn = ttk.Button(lf,
                             text="Feature",
                             command = lambda:self.DES3_window()
-                            ).grid(column=2,row=3,**setup.pad10)
+                            ).grid(column=2,row=3,**option1)
         # ANCHOR second label frame
         lf2 = ttk.LabelFrame(self, text ="Actions")
-        lf2.grid(column=0,row=4,**setup.pad20)
+        lf2.grid(column=0,row=4,**option3)
         upload_Btn = ttk.Button(lf2,
                             text="Upload Data",
                             command=lambda:self.open_upload()
-                            ).grid(column=0,row=4,**setup.pad10)
+                            ).grid(column=0,row=4,**option1)
         signout_Btn = ttk.Button(lf2,
                             text="Chat box",
                             command = lambda:self.signout()
-                            ).grid(column=1,row=4,**setup.pad10)
+                            ).grid(column=1,row=4,**option1)
         signout_Btn = ttk.Button(lf2,
                             text="Sign out",
-                            command = lambda:logout
-                            ).grid(column=2,row=4,**setup.pad10)
+                            command = lambda:self.signout()
+                            ).grid(column=2,row=4,**option1)
         quit_Btn = ttk.Button(self,
-                            text="Exit",
+                            text="Quit",
                             command = lambda:self.destroy()
-                            ).grid(column=0,row=5,**setup.pad10,sticky=SE)
-
+                            ).grid(column=0,row=5,**option1,sticky=SE)
+        self.DES1 = Toplevel()
+        self.DES1.withdraw()
+        self.DES2 = Toplevel()
+        self.DES2.withdraw()
+        self.DES3 = Toplevel()
+        self.DES3.withdraw() 
+        
     def DES_window(self,windowname, datatype, next, prev,positionX ,positionY):
         windowname = Toplevel()
         windowname.title(setup.app_name)
@@ -132,11 +140,12 @@ class Menu(Tk):
             """
             pass
         
+
         def changeWindow(current,new):
             current.destroy()
             next()
         def close_DES():
-            windowname.destroy()
+            windowname.destroy  ()
             self.DES_check.discard(datatype)
         windowname.protocol("WM_DELETE_WINDOW",close_DES)
         windowname.mainloop()
@@ -144,15 +153,16 @@ class Menu(Tk):
     #ANCHOR creating 3 DES
     def DES1_window(self):
         if "location" not in self.DES_check:
-            DES(self,'location',self.DES2_window,self.DES3_window,500,20)
+            self.DES_window(self.DES1,'location',self.DES2_window,self.DES3_window,500,20)
             
     def DES2_window(self):
         if "gender" not in self.DES_check:
-            DES(self,'gender',self.DES3_window,self.DES1_window,500,10)
+            self.DES_window(self.DES2,'gender',self.DES3_window,self.DES1_window,500,10)
             
     def DES3_window(self):
         if "feature" not in self.DES_check:
-            DES(self.DES3,'feature',self.DES1_window,self.DES2_window,500,000)
+            
+            self.DES_window(self.DES3,'feature',self.DES1_window,self.DES2_window,500,000)
             
     def upload_window(self,user="user"):
         self.upload = Toplevel()
@@ -186,6 +196,7 @@ class Menu(Tk):
                         command=lambda: self.upload_data()).grid(column=0,row=8,**option2,columnspan=4)
         cancel_Btn = ttk.Button(self.upload, text="Cancel",
                         command=lambda: self.close_upload()).grid(column=0,row=9,**option2,sticky=SE)
+        print(self)
         self.upload.mainloop()
     
     def open_upload(self):
@@ -207,6 +218,13 @@ class Menu(Tk):
     def close_upload(self):
         self.check = False
         self.upload.destroy()
+    
+    def signout(self):
+        """Sign out function which destroy self, DES and return to log in window
+
+        """
+        self.destroy()
+        application.App()
 
 if __name__ == "__main__":
     new_menu = window()

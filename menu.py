@@ -161,7 +161,6 @@ class window(Tk):
             
     def DES3_window(self):
         if "feature" not in self.DES_check:
-            
             self.DES_window(self.DES3,'feature',self.DES1_window,self.DES2_window,500,000)
             
     def upload_window(self,user="user"):
