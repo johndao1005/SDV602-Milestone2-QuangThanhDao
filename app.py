@@ -4,13 +4,13 @@ With the application user can view data in graph with matplotlib while enjoy the
 
 """
 
-from view.application import DES#.login import Login
+from view.dataView import dataView#.login import Login
 
 if __name__ == '__main__':
     """
     Initiate the app
     """
-    dataView = DES()
+    dataView = dataView()
     dataView.mainloop()
     pass
     

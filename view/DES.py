@@ -1,75 +1,69 @@
-from tkinter import *
+from model.chart_create import draw_graph
+import tkinter as tk
 from tkinter import ttk
 import view.setup as setup
-from model.chart_create import draw_graph
+
+class DES1(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        DES_setup(self,controller,"gender",DES2,DES3)
 
 
-class DES(Tk):
-    def __init__(self, parent, datatype, next, prev,positionX ,positionY): #change to **kwrags
-        super().__init__()
-        Frame()
-        self.parent =parent
-        self.datatype = datatype
-        self.title(setup.app_name)
-        self.iconbitmap(setup.icon)
-        label = Label(self, text=f"White shark {datatype} data").grid(column=0,row=0,**setup.pad20,columnspan=3)
-        self.geometry(f"940x740+{positionX}+{positionY}")
-        parent.DES_check.add(datatype)
-        # ANCHOR data display
-        draw_graph(self,datatype)
-        # Storing new data
-        input = StringVar()
-        chatLog = StringVar()
-        # chat box creating and function
-        frame1 = ttk.LabelFrame(self,text="Chat box",borderwidth=0)
-        frame1.grid(column=2,row=1,**setup.pad20,sticky = E)
-        chatBox = ttk.Label(frame1,
+class DES2(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        DES_setup(self,controller,"location",DES3,DES1)
+
+
+class DES3(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        DES_setup(self,controller,"feature",DES1,DES2)
+
+
+def DES_setup(window,controller,datatype,next,prev):
+    label = ttk.Label(window, text=f"White shark {datatype} data").grid(
+        column=0, row=0, **setup.pad20, columnspan=3)
+    # graph
+    draw_graph(window, datatype)
+    input = tk.StringVar()
+    chatLog = tk.StringVar()
+    # chat box creating and function
+    frame1 = ttk.LabelFrame(window, text="Chat box", borderwidth=0)
+    frame1.grid(column=2, row=1, **setup.pad20, sticky="E")
+    chatBox = ttk.Label(frame1,
                         background='light gray',
-                        textvariable=chatLog,width = 40
-                        ).grid(column=1,row=1,**setup.pad20,columnspan=2)
-        entry = ttk.Entry(frame1, textvariable=input).grid(column=1,row=2,**setup.pad20,sticky = E)
-        button = ttk.Button(frame1,
+                        textvariable=chatLog, width=40
+                        ).grid(column=1, row=1, **setup.pad20, columnspan=2)
+    entry = ttk.Entry(frame1, textvariable=input).grid(
+        column=1, row=2, **setup.pad20, sticky="E")
+    button = ttk.Button(frame1,
                         text="Send",
                         command=lambda: chat()
-                        ).grid(column=2,row=2,**setup.pad20,sticky = E)
-        # ANCHOR Buttons for self
-        frame2 = ttk.LabelFrame(self,text="Chat box",borderwidth=0)
-        frame2.grid(column=2,row=3,**setup.pad20,sticky=NSEW)
-        button = ttk.Button(frame2,
+                        ).grid(column=2, row=2, **setup.pad20, sticky="E")
+    # ANCHOR Buttons for self
+    frame2 = ttk.LabelFrame(window, text="Control box", borderwidth=0)
+    frame2.grid(column=2, row=3, **setup.pad20, sticky="NSEW")
+    button = ttk.Button(frame2,
                         text="Next",
-                        command=lambda: self.changeWindow(next)
-                        ).grid(column=0,row=4,**setup.pad20)
-        button = ttk.Button(frame2,
+                        command=lambda: controller.show_frame(next)
+                        ).grid(column=0, row=4, **setup.pad20)
+    button = ttk.Button(frame2,
                         text="Previous",
-                        command=lambda: self.changeWindow(prev)
-                        ).grid(column=1,row=4,**setup.pad20)
-        button = ttk.Button(frame2,
+                        command=lambda: controller.show_frame(prev)
+                        ).grid(column=1, row=4, **setup.pad20)
+    button = ttk.Button(frame2,
                         text="Upload",
                         command=lambda: chat()
-                        ).grid(column=1,row=5,**setup.pad20)
-        button = ttk.Button(frame2,
+                        ).grid(column=1, row=5, **setup.pad20)
+    button = ttk.Button(frame2,
                         text="Update",
                         command=lambda: chat()
-                        ).grid(column=0,row=5,**setup.pad20)
-        Location_self = ttk.Button(frame2,
-                              text="upload Data",
-                              command=lambda: chat()
-                              ).grid(column=1,row=6,**setup.pad20)
-        # button = Button(self,
-        #                 text="upload Data",
-        #                 command=lambda: chat()
-        #                 ).grid(column=0,row=0,**setup.pad20)
-        button = ttk.Button(self,
+                        ).grid(column=0, row=5, **setup.pad20)
+    Location_self = ttk.Button(frame2,
+                               text="upload Data",
+                               command=lambda: chat()
+                               ).grid(column=1, row=6, **setup.pad20)
+    button = ttk.Button(window,
                         text="Quit",
-                        command=lambda: self.close_DES()
-                        ).grid(column=2,row=6,**setup.pad20,sticky=SE)
-        self.protocol("WM_DELETE_WINDOW",self.close_DES)
-        self.mainloop()
-        
-    def changeWindow(self,newWindow):
-        self.destroy()
-        newWindow()
-        
-    def close_DES(self):
-        self.destroy()
-        self.parent.DES_check.discard(self.datatype)
+                        command=lambda: controller.destroy()).grid(column=2, row=4, **setup.pad20)
