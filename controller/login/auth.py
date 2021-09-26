@@ -1,4 +1,4 @@
-#from view.menu import Menu
+from view.menu import Menu
 
 def authentication(parent,name,pw=""):
         """Function to check the if username and password is correct then destroy the login window
@@ -9,5 +9,4 @@ def authentication(parent,name,pw=""):
             pw (string): password from user input
         """
         parent.destroy()
-        #Menu(name)
-        pass
+        Menu(name)

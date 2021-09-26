@@ -8,7 +8,7 @@ withdraw(): hide the current window
 Label(): can be used to display text, image
 Entry(): can be used to create text box
 """
-import tkinter as tk
+from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter import ttk
 import view.setup as setup
@@ -16,17 +16,25 @@ from view.DES import DES
 from view.login import Login
 
 
-class Menu(tk.Frame):
-    def __init__(self,parent,controller):
-        tk.Frame.__init__(self,parent)
+class Menu(Tk):
+    def __init__(self,name="user"):
+        """start an instance of the application which present the menu for user to interact with the database and import the
+        user login details from database
+
+        Args:
+            name (string): username
+        """
+        self.user = name
         super().__init__()
-        label = ttk.Label(self, text="Application Menu").grid(column=0,row=0,**setup.pad20)
-        #parent.geometry("330x380+50+50")
+        self.title(setup.app_name)
+        self.iconbitmap(setup.icon)
+        label = Label(self, text="Application Menu").grid(column=0,row=0,**setup.pad20)
+        self.geometry("330x380+50+50")
         #ANCHOR control the number of upload and DES window
         self.DES_check = set()
         self.check = False
         # ANCHOR first label frame
-        label = ttk.Label(self, text=f"Welcome ,\n Please select one data explorer screen from below").grid(column=0,row=1,**setup.pad10)
+        label = Label(self, text=f"Welcome {self.user},\n Please select one data explorer screen from below").grid(column=0,row=1,**setup.pad10)
         lf = ttk.LabelFrame(self, text ="Data View")
         lf.grid(column=0,row=2,**setup.pad20)
         DES_Btn = ttk.Button(lf,
@@ -59,7 +67,7 @@ class Menu(tk.Frame):
         quit_Btn = ttk.Button(self,
                             text="Exit",
                             command = lambda:self.destroy()
-                            ).grid(column=0,row=5,**setup.pad10,sticky="se")
+                            ).grid(column=0,row=5,**setup.pad10,sticky=SE)
     def signout(self):
         self.destroy()
         Login()

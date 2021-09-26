@@ -22,6 +22,7 @@ normal_font = ("Verdana",10)
 small_font = ("Verdana",8)
 style.use("ggplot")# other option dark_background,
 
+
 f = Figure()
 a = f.add_subplot(111) # 111 is plot number 1 and 121 is plot number 2
 
@@ -170,13 +171,32 @@ class App(tk.Tk):
                                    command = lambda: changeExchange("Bitstamp","bitstamp"))
         menubar.add_cascade(label ="exchange" ,menu =exchangeChoice)
         
+        dataTF = tk.Menu(menubar,tearoff=1)
+        dataTF.add_command(label="Tick",
+                                   command = lambda: changeTimeFrame("tick"))
+        dataTF.add_command(label="1 Day",
+                                   command = lambda: changeTimeFrame("1d"))
+        dataTF.add_command(label="3 Days",
+                                   command = lambda: changeTimeFrame("3d"))
+        dataTF.add_command(label="7 Days",
+                                   command = lambda: changeTimeFrame("7d"))
+        menubar.add_cascade(label ="Data Time Frame" ,menu =dataTF)
+        
+        exchangeChoice = tk.Menu(menubar,tearoff=1)
+        exchangeChoice.add_command(label="BTC-e",
+                                   command = lambda: changeExchange("BTC-e","btce"))
+        exchangeChoice.add_command(label="Bitfinex",
+                                   command = lambda: changeExchange("Bitfinex","bitfinex"))
+        exchangeChoice.add_command(label="Bitstamp",
+                                   command = lambda: changeExchange("Bitstamp","bitstamp"))
+        menubar.add_cascade(label ="exchange" ,menu =exchangeChoice)
         
         tk.Tk.config(self,menu=menubar)
         
         self.frames ={}
-        for Frame in (StartPage,PageOne,PageTwo,PageThree):
-            frame = Frame(container, self)
-            self.frames[Frame] = frame
+        for DES in (StartPage,PageOne,PageTwo,PageThree):
+            frame = DES(container, self)
+            self.frames[DES] = frame
             frame.grid(row=0,column = 0, sticky = "nsew")
         self.show_frame(StartPage)
         
