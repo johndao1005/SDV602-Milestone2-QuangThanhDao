@@ -1,13 +1,12 @@
-from tkinter import *
 from tkinter import ttk
+import tkinter as tk
 import view.setup as setup
 from model.chart_create import draw_graph
 
 
-class DES(Tk):
-    def __init__(self, parent, datatype, next, prev,positionX ,positionY): #change to **kwrags
-        super().__init__()
-        Frame()
+class DES(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
         self.parent =parent
         self.datatype = datatype
         self.title(setup.app_name)

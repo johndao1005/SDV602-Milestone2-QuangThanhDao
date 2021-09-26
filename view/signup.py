@@ -1,26 +1,27 @@
 from controller.login.register import makeUser
-from tkinter import *
 from tkinter import ttk
-import view.setup as setup
 from controller.exit_button import closeToplevel
+import view.setup as setup
+import tkinter as tk
 
 
-class Signup(Toplevel):
+
+class Signup(tk.Toplevel):
     def __init__(self, parent, controller):
         super().__init__()
         parent.check = True
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
         options = {'padx': 10, 'pady': 5}
-        label = Label(self, text="Sign up").grid(
+        label = ttk.Label(self, text="Sign up").grid(
             column=0, row=0, **options, columnspan=2)
         self.geometry("310x360+100+100")
         self.protocol("WM_DELETE_WINDOW", closeToplevel(parent))
         # Create placeholder to store data
-        username = StringVar()
-        password = StringVar()
-        confirmPassword = StringVar()
-        email = StringVar()
+        username = tk.StringVar()
+        password = tk.StringVar()
+        confirmPassword = tk.StringVar()
+        email = tk.StringVar()
         lf = ttk.LabelFrame(self, text="Login details")
         lf.grid(column=0, row=1, padx=20, pady=20)
         label = ttk.Label(lf, text="Username").grid(column=0, row=3, **options)
@@ -49,5 +50,5 @@ class Signup(Toplevel):
         button = ttk.Button(self,
                             text="Cancel",
                             command=lambda: closeToplevel(parent)
-                            ).grid(column=0, row=3, **options, sticky=SE)
+                            ).grid(column=0, row=3, **options, sticky="SE")
         self.mainloop()
