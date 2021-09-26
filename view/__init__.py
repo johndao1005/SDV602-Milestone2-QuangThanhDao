@@ -1,1 +1,1 @@
-__all__ = ["login","menu","setup","chart_create"]
+__all__ = ["login","menu","setup","chart_create","signup"]

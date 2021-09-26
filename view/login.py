@@ -1,19 +1,12 @@
-#import view.ChartExamples as ce 
 import controller.exit_button as exit_button
-#import controller.DES.figure_list_select as figure_list_select
-from controller.login import login
-import PySimpleGUI as sg
-import matplotlib
-matplotlib.use('TkAgg')
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
-import numpy as np
-import matplotlib.pyplot as plt
+from controller.login.auth import authentication
 from tkinter import *
 from tkinter import ttk
-import setup
+import view.setup as setup
+import view.signup as Signup
 
-class App(Tk):
+
+class Login(Tk):
     def __init__(self):
         """Start an instance of login screen which allow user to sign up with top level window or login directly
         When users login, the class would open to menu which is another class which handle the data view, update, delete while
@@ -44,7 +37,7 @@ class App(Tk):
         ).grid(column=1, row=1, padx=10, pady=10)
         login_btn = ttk.Button(button_frame,
                            text="Login",
-                           command=lambda: login(username,password)
+                           command=lambda: authentication(self,username,password)
                            ).grid(column=1,row=3,**option2)
         signup_btn = ttk.Button(button_frame,
                             text="Sign Up",
@@ -55,8 +48,6 @@ class App(Tk):
                           command=lambda: self.destroy()
                           ).grid(column=2,row=4,**options)
         
-        def call_signup(self):
-            """The function check for any instance of signup and only create a sign up window if there is none
-        """
+    def call_signup(self):
         if self.check == False:
-            self.signup_window()
+            Signup()

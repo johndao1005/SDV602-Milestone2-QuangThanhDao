@@ -12,10 +12,10 @@ Entry(): can be used to create text box
 from tkinter import *
 from tkinter.messagebox import showinfo
 from tkinter import ttk
-import application, setup, chart_create
+import view.setup as setup
 
 
-class window(Tk):
+class Menu(Tk):
     def __init__(self,name="user"):
         """start an instance of the application which present the menu for user to interact with the database and import the
         user login details from database

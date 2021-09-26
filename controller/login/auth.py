@@ -1,6 +1,6 @@
-from view import menu
+from view.menu import Menu
 
-def login(self,name,pw=""):
+def authentication(parent,name,pw=""):
         """Function to check the if username and password is correct then destroy the login window
         and open the main menu to allow users interact with the application
 
@@ -8,5 +8,5 @@ def login(self,name,pw=""):
             name (string): username from user input
             pw (string): password from user input
         """
-        self.destroy()
-        menu.window(name)
+        parent.destroy()
+        Menu(name)
