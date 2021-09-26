@@ -66,4 +66,5 @@ class DataManager():
 #                     outputData.append(dataEntry[index])
 #     return outputData
 if __name__ == "__main__":
-    
+    data = DataManager()
+    data.readFile("../../data-sample/")
