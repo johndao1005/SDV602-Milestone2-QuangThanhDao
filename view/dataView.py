@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from view.DES import DES1,DES2,DES3
+from view.DES.DES import genderDES,locationDES,featureDES
 import view.setup as setup
 from tkinter.messagebox import showinfo
 
@@ -24,25 +24,25 @@ class dataView(tk.Tk):
         filemenu.add_separator()
         filemenu.add_command(label = "Exit",command = quit)
         DESmenu = tk.Menu(menubar, tearoff = 0)
-        DESmenu.add_command(label = "Gender",command = lambda: self.show_frame(DES1))
+        DESmenu.add_command(label = "Gender",command = lambda: self.show_frame(genderDES))
         DESmenu.add_separator()
-        DESmenu.add_command(label = "Feature",command = lambda: self.show_frame(DES3))
+        DESmenu.add_command(label = "Feature",command = lambda: self.show_frame(featureDES))
         DESmenu.add_separator()
-        DESmenu.add_command(label = "Location",command = lambda: self.show_frame(DES2))
+        DESmenu.add_command(label = "Location",command = lambda: self.show_frame(locationDES))
         menubar.add_cascade(label = "File",menu=filemenu)
         menubar.add_cascade(label = "Data view",menu=DESmenu)
         
         tk.Tk.config(self,menu=menubar)
-        #ANCHOR control DES
+        #ANCHOR load all DES
         self.frames ={}
-        for DES in (DES1,DES2,DES3):
+        for DES in (genderDES,locationDES,featureDES):
             frame = DES(container, self)
             self.frames[DES] = frame
             frame.grid(row=0,column = 0, sticky = "nsew")
-        self.show_frame(DES1)
+        self.show_frame(locationDES)
         
-    def show_frame(self,cont):
-        frame = self.frames[cont]
+    def show_frame(self,newFrame):
+        frame = self.frames[newFrame]
         frame.tkraise()
         
 if __name__ == "__main__":    

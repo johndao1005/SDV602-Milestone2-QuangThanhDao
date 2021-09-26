@@ -3,7 +3,7 @@ from controller.login.auth import authentication
 from tkinter import *
 from tkinter import ttk
 import view.setup as setup
-import view.signup as Signup
+import view.signup.signup as Signup
 
 
 class Login(Tk):

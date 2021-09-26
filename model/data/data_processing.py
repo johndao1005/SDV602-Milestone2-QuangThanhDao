@@ -1,4 +1,3 @@
-import setup
 import csv
 from datetime import datetime
 import string
@@ -28,13 +27,14 @@ dataList = {
 id_num = 0
 
 
+datasource = "./data-sample/test.csv"
+
 def read_data(datatype="longtitude"):
     index = dataList[datatype]
-    with open(setup.datasource, "r") as data:
+    with open(datasource, "r") as data:
         dataset = data.read().split("\n")
         global id_num
         id_num = len(dataset)
-
         outputData = []
         for eachLine in dataset[1::]:
             if len(eachLine) > 1:
@@ -49,7 +49,7 @@ def append_data(feature=["Immature", "300 cm"], gender="male", newshark=True, or
         sharkName = "Shark "+"".join(random.choices(string.ascii_uppercase,
                                                     k=2) + random.choices(string.digits, k=3))
         sharkTag = sharkName + " - " + "".join(random.choices(string.digits,k=2))
-    with open(setup.datasource, "a") as data:
+    with open(datasource, "a") as data:
         header = ["X", "Y", "FID", "id", "modified", "language", "rights", "rightsHolder", "bibliographicCitation", "institutionCode", "collectionCode", "basisOfRecord", "catalogNumber", "occurrenceRemarks", "individualID", "individualCount", "sex", "occurrenceStatus", "eventDate", "year", "waterBody", "decimalLatitude", "decimalLongitude", "geodeticDatum", "coordinateUncertaintyInMeters", "footprintWKT", "georeferenceRemarks", "scientificNameID", "scientificName", "kingdom", "phylum", "class", "order_", "family", "genus", "subgenus", "specificEpithet", "infraspecificEpithet", "scientificNameAuthorship"]
         writer = csv.DictWriter(data, fieldnames=header)
         item = {"X": -19648669.36,
