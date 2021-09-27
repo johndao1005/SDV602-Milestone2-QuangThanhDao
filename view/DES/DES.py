@@ -51,7 +51,7 @@ class DES(tk.Frame):
                             ).grid(column=1, row=5, **setup.pad20)
         button = ttk.Button(frame2,
                             text="Update",
-                            command=lambda: controller.show_frame(next)
+                            command=lambda: controller.loadDES()
                             ).grid(column=0, row=5, **setup.pad20)
         Location_self = ttk.Button(frame2,
                                 text="upload Data",
