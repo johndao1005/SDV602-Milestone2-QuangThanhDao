@@ -1,12 +1,9 @@
 from controller.login.auth import authentication
 from controller.login.register import makeUser
-from controller.openWindow import openTopwindow
 
 from tkinter import *
 from tkinter import ttk
 import view.setup as setup
-import view.signup.signup as Signup
-
 
 class Login(Tk):
     def __init__(self):
@@ -64,7 +61,7 @@ class Login(Tk):
             self.signupWindow()
     def signupWindow(self):
         self.check = True
-        self.signup = Tk()
+        self.signup = Toplevel()
         self.signup.title(setup.app_name)
         self.signup.iconbitmap(setup.icon)
         options = {'padx': 10, 'pady': 5}

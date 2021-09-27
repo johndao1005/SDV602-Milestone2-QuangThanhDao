@@ -1,1 +1,1 @@
-__all__ = ["DES","upload"]
+__all__ = ["DES"]
