@@ -74,6 +74,7 @@ class Login(Tk):
         password = StringVar()
         confirmPassword = StringVar()
         email = StringVar()
+        
         lf = ttk.LabelFrame(self.signup, text="Login details")
         lf.grid(column=0, row=1, padx=20, pady=20)
         label = ttk.Label(lf, text="Username").grid(
