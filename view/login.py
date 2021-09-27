@@ -49,13 +49,19 @@ class Login(Tk):
                                ).grid(column=1, row=3, **option2)
         signup_btn = ttk.Button(button_frame,
                                 text="Sign Up",
-                                command=lambda: openTopwindow(self.signupWindow(),self.check)
+                                command=lambda: self.callSignup()
                                 ).grid(column=2, row=3, **option2)
         quit_btn = ttk.Button(self,
                               text="Quit",
                               command=lambda: self.destroy()
                               ).grid(column=2, row=4, **options)
+        self.mainloop()
         
+    def callSignup(self):
+        """The function check for any instance of signup and only create a sign up window if there is none
+        """
+        if self.check == False:
+            self.signupWindow()
     def signupWindow(self):
         self.check = True
         self.signup = Tk()
