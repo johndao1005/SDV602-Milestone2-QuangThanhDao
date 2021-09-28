@@ -2,8 +2,8 @@
 This is the Model class the super class of all Models
 """
 from tkinter.constants import S
-from model.data.data_scan import DataManager
-
+#from model.data.data_scan import DataManager
+from data.data_scan import DataManager
 
 class Model():
     def __init__(self, dataSource=None):
@@ -56,7 +56,7 @@ class Model():
         data = self.dataManager.readFile(self.dataSource)
         latitude = []
         longitude = []
-        for row in dataset:
+        for row in data:
                 if row['decimalLatitude'] != "" or row['decimalLongitude'] != "":
                     latitude.append(row["decimalLatitude"])
                     longitude.append(row["decimalLongitude"])
