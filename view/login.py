@@ -29,12 +29,14 @@ class Login(Tk):
         username = StringVar()
         label = ttk.Label(lf, text="Username").grid(
             column=0, row=1, **options, ipadx=5, ipady=5)
-        username_entry = Entry(lf, textvariable=username).grid(
+        username_entry = Entry(lf, textvariable=username)
+        username_entry.grid(
             column=1, row=1, **options, columnspan=2)
         label = ttk.Label(lf, text="Password").grid(
             column=0, row=2, **options, ipadx=5, ipady=5)
         password_entry = Entry(
-            lf, textvariable=password, show="*").grid(column=1, row=2, **options, columnspan=2)
+            lf, textvariable=password, show="*")
+        password_entry.grid(column=1, row=2, **options, columnspan=2)
         # ANCHOR Buttons for main window
         button_frame = ttk.Frame(
             self,

@@ -1,11 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
-from controller.menu.open_csv import select_file
+from controller.menu.merge_csv import mergeFiles
+from controller.menu.open_csv import selectFile
 from view.DES.DES import genderDES, locationDES, featureDES
 import view.setup as setup
 from tkinter.messagebox import showinfo
-from tkinter import filedialog as fd
-
 
 class dataView(tk.Tk):
     def __init__(self, *args, **kwargs):
@@ -19,14 +18,12 @@ class dataView(tk.Tk):
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
         self.check = False
+        
         # ANCHOR menubar setup
         menubar = tk.Menu(self.container)
         filemenu = tk.Menu(menubar, tearoff=0)
-        # filemenu.add_command(label = "Choose data source",command = lambda: popupmsg("Not support yet"))
-        filemenu.add_command(label="Choose Data Source",
-                             command=lambda: self.openUpload())
-        filemenu.add_command(label="Edit data source", command=lambda: showinfo(
-            "Oops", "This function is developing in progress"))
+        filemenu.add_command(label="Choose Data Source",command=lambda: selectFile("open",self))
+        filemenu.add_command(label="Merge database", command=lambda: self.openUpload())
         filemenu.add_command(label="Sign out", command=lambda: showinfo(
             "Oops", "This function is developing in progress"))
         filemenu.add_separator()
@@ -86,33 +83,22 @@ class dataView(tk.Tk):
             column=1, row=3, **options, columnspan=3)
         browse_file = ttk.Button(self.upload,
                             text="Select",
-                            command=lambda: select_file(self.target_entry)
+                            command=lambda: selectFile("merge",self.target_entry)
                             ).grid(column=4, row=2, **setup.pad10)
         browse_file = ttk.Button(self.upload,
-                          text="Select",
-                          command=lambda: select_file(self.source_entry)
+                            text="Select",
+                            command=lambda: selectFile("merge",self.source_entry)
                           ).grid(column=4, row=3, **setup.pad10)
         merge_btn = ttk.Button(self.upload,
                             text="Merge",
-                            command=lambda: self.destroy()
+                            command=lambda: mergeFiles(self.source_entry.get(), self.target_entry.get(),self.upload)
                             ).grid(column=1, row=4, **setup.pad10)
         quit_btn = ttk.Button(self.upload,
-                          text="Quit",
-                          command=lambda: self.closeUpload()
+                            text="Quit",
+                            command=lambda: self.closeUpload()
                           ).grid(column=2, row=4, **setup.pad10)
         self.upload.mainloop()
-
-    def select_file(self,target):
-        filetypes = (
-            ('csv', '*.csv'),
-            ('All files', '*.*')
-        )
-        filename = fd.askopenfilename(
-            title='Select datasource',
-            initialdir='/',
-            filetypes=filetypes)
-        target.insert(tk.END,filename)
-    
+        
     def openUpload(self):
         if self.check == False:
             self.uploadWindow()
