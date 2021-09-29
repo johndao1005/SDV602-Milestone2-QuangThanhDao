@@ -2,14 +2,12 @@
 This is the Model class the super class of all Models
 """
 from tkinter.constants import S
-#from model.data.data_scan import DataManager
-from data.data_scan import DataManager
+from model.data.data_scan import DataManager
 
 class Model():
     def __init__(self, dataSource=None):
         self.dataSource = dataSource
         self.dataManager = DataManager()
-
         if dataSource != None:
             csvFile = self.dataManager.readFile(dataSource)
 
@@ -27,7 +25,7 @@ class Model():
                 female += 1
         return {"Male": male, "Female": female}
 
-    def locationData(self):
+    def featureData(self):
         data = self.dataManager.readFile(self.dataSource)
         yearData = dict()
         for row in data:
@@ -48,16 +46,10 @@ class Model():
                     yearData[year][4] += 1
                 elif featureData[2] == "420-450":
                     yearData[year][5] += 1
-                elif featureData[2] == "440" or featureData[2] == "450":
+                else:
                     yearData[year][6] += 1
         return yearData
 
-    def featureData(self):
-        data = self.dataManager.readFile(self.dataSource)
-        latitude = []
-        longitude = []
-        for row in data:
-                if row['decimalLatitude'] != "" or row['decimalLongitude'] != "":
-                    latitude.append(row["decimalLatitude"])
-                    longitude.append(row["decimalLongitude"])
-        return {"Latitude": latitude,"Longitude":longitude}
+    def locationData(self):
+        locationData = self.dataManager.readLocation(self.dataSource)
+        return locationData

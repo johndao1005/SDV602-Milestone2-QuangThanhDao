@@ -4,56 +4,94 @@ from matplotlib.backends.backend_tkagg import (
 from matplotlib.figure import Figure
 import numpy as np
 from tkinter import *
-import matplotlib.pyplot as plt
+from model.model import Model
+import geopandas as gpd
 
-
-def draw_graph(windowname, datatype,datasource =""):
-    
+def draw_graph(window, frame,dataview):
+    database = Model(dataview.source)
     # ANCHOR prepare graph
     fig = Figure(figsize=(6, 6), dpi=100)
-    a = fig.add_subplot(111)
+    ax = fig.add_subplot(111)
     # data type plot in graph
-    if datatype == "feature":
-        labels = ['G1', 'G2', 'G3', 'G4', 'G5']
-        men_means = [20, 34, 30, 35, 27]
-        women_means = [25, 32, 34, 20, 25]
-        x = np.arange(len(labels))  # the label locations
-        width = 0.35  # the width of the bars
-        rects1 = a.bar(x - width/2, men_means, width, label='Men')
-        rects2 = a.bar(x + width/2, women_means, width, label='Women')
-
-        # Add some text for labels, title and custom x-axis tick labels, etc.
-        a.set_xlabel('year')
-        a.set_xticks(x)
-        a.set_xticklabels(labels)
-        a.legend()
-
-        a.bar_label(rects1, padding=3)
-        a.bar_label(rects2, padding=3)
-
-        a.plot()
+    if frame == "feature":
+        #Create data store
+        labels = []
+        mature = []
+        immature = []
+        size300 = []
+        size350 = []
+        size400 = []
+        sizeUnder440 = []
+        sizeAbove440 = []
+        #Extract filtered
+        data = database.featureData()
+        # sort value 
+        for key  in sorted (data.keys()):
+            labels.append(key)
+            mature.append(data[key][0])
+            immature.append(data[key][1])
+            size300.append(data[key][2])
+            size350.append(data[key][3])
+            size400.append(data[key][4])
+            sizeUnder440.append(data[key][5])
+            sizeAbove440.append(data[key][6])
+        # the label locations
+        x = np.arange(len(labels))  
+        # the width of the bars
+        width = 0.1  
+        rects1 = ax.bar(x + width, mature, width, label='Mature')
+        rects2 = ax.bar(x + width*2, immature, width, label='Immature')
+        rects3 = ax.bar(x + width*3, size300, width, label='300 cm')
+        rects4 = ax.bar(x + width*4, size350, width, label='350 cm')
+        rects5 = ax.bar(x + width*5, size400, width, label='400 cm')
+        rects6 = ax.bar(x + width*5, sizeUnder440, width, label='Below 400 cm')
+        rects7 = ax.bar(x + width*7, sizeAbove440, width, label='Above 440 cm')
+        ax.set_xlabel('Year')
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels)
+        ax.legend()
+        ax.bar_label(rects1, padding=2)
+        ax.bar_label(rects2, padding=2)
+        ax.bar_label(rects3, padding=2)
+        ax.bar_label(rects4, padding=2)
+        ax.bar_label(rects5, padding=2)
+        ax.bar_label(rects6, padding=2)
+        ax.bar_label(rects7, padding=2)
+        ax.plot()
         
-    elif datatype == "gender":
-        stockListExp = ['AMZN', 'AAPL', 'JETS', 'CCL', 'NCLH']
-        stockSplitExp = [15, 25, 40, 10, 10]
-        a.pie(stockSplitExp, radius=1, labels=stockListExp,
-        autopct='%0.2f%%', shadow=True)
+    elif frame == "gender":
+        #Create data store
+        label = []
+        value = []
+        #Extract filtered
+        data = database.genderData()
+        for key  in data:
+            label.append(key)
+            value.append(data[key])
+        #Draw the graph
+        ax.pie(value, radius=1, labels=label,autopct='%0.2f%%', shadow=True,)
     
-    elif datatype == "location":
-        data = (20, 35, 30, 35, 27)
-
-        ind = np.arange(5)  # the x locations for the groups
-        width = .5
-        a.bar(ind, data, width)
+    elif frame == "location":
+        #extract filtered data
+        data = database.locationData()
+        #getting map for NZ
+        countries = gpd.read_file(gpd.datasets.get_path("naturalearth_lowres"))
+        countries[countries["name"] == "New Zealand"].plot(color="lightgrey", ax=ax)
+        # Plot map
+        data.plot(x="decimalLongitude", y="decimalLatitude", kind="scatter", colormap="YlOrRd", 
+        title=f"New Zealand Location", ax=ax)
+        ax.grid(b=True, alpha=0.5)
+        ax.set_xlabel('Longtitude')
+        ax.set_ylabel('Latitude')
     # ANCHOR draw graph
-    canvas = FigureCanvasTkAgg(fig, master=windowname)  # A tk.DrawingArea.
+    canvas = FigureCanvasTkAgg(fig, master=window)  # A tk.DrawingArea.
     canvas.draw()
     # ANCHOR Options for adding the tool in tool bar
 
     NavigationToolbar2Tk.toolitems = [t for t in NavigationToolbar2Tk.toolitems if t[0] not in (
         'Subplots', 'Back', 'Forward', 'Save')]
     # pack_toolbar=False will make it easier to use a layout manager later on.
-    toolbar = NavigationToolbar2Tk(canvas, windowname, pack_toolbar=False)
+    toolbar = NavigationToolbar2Tk(canvas, window, pack_toolbar=False)
     toolbar.update()
     canvas.get_tk_widget().grid(column=0, row=1, rowspan=4)  # create canvas
     toolbar.grid(column=0, row=6)  # create tool bar

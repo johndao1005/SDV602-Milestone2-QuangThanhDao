@@ -14,4 +14,4 @@ def selectFile(action,target):
     if action =="merge":
         target.insert(END,filename)
     if action =="open":
-        pass
+        target.loadDES(filename)

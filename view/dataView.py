@@ -18,7 +18,6 @@ class dataView(tk.Tk):
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
         self.check = False
-        
         # ANCHOR menubar setup
         menubar = tk.Menu(self.container)
         filemenu = tk.Menu(menubar, tearoff=0)
@@ -45,7 +44,8 @@ class dataView(tk.Tk):
         
     # ANCHOR load all DES
     
-    def loadDES(self):
+    def loadDES(self,source=setup.datasource):
+        self.source = source
         for DES in (genderDES, locationDES, featureDES):
             frame = DES(self.container, self)
             self.frames[DES] = frame
@@ -91,7 +91,7 @@ class dataView(tk.Tk):
                           ).grid(column=4, row=3, **setup.pad10)
         merge_btn = ttk.Button(self.upload,
                             text="Merge",
-                            command=lambda: mergeFiles(self.source_entry.get(), self.target_entry.get(),self.upload)
+                            command=lambda: mergeFiles( self.target_entry.get(),self.source_entry.get(),self.upload,self)
                             ).grid(column=1, row=4, **setup.pad10)
         quit_btn = ttk.Button(self.upload,
                             text="Quit",
