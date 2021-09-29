@@ -1,4 +1,4 @@
-datasource = "./data-sample/test1.csv"
+datasource = "./data-sample/White_shark_tagging_off_New_Zealand_between_April_2005_and_September_2009.csv"
 app_name = "White shark tracking"
 pad30 = {'padx': 30, 'pady': 30}
 pad20 = {'padx': 20, 'pady': 20}

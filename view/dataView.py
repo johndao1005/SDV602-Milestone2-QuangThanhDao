@@ -50,7 +50,7 @@ class dataView(tk.Tk):
             frame = DES(self.container, self)
             self.frames[DES] = frame
             frame.grid(row=0, column=0, sticky="nsew")
-        self.show_frame(locationDES)
+        self.show_frame(featureDES)
         
     def show_frame(self, newFrame):
         frame = self.frames[newFrame]
@@ -91,7 +91,7 @@ class dataView(tk.Tk):
                           ).grid(column=4, row=3, **setup.pad10)
         merge_btn = ttk.Button(self.upload,
                             text="Merge",
-                            command=lambda: mergeFiles( self.target_entry.get(),self.source_entry.get(),self.upload,self)
+                            command=lambda: mergeFiles( self.target_entry.get(),self.source_entry.get(),self)
                             ).grid(column=1, row=4, **setup.pad10)
         quit_btn = ttk.Button(self.upload,
                             text="Quit",

@@ -45,11 +45,11 @@ class DES(tk.Frame):
                             command=lambda: dataview.show_frame(prev)
                             ).grid(column=1, row=4, **setup.pad20)
         button = ttk.Button(frame2,
-                            text="Upload Data",
-                            command=lambda: dataview.show_frame(next)
+                            text="Update",
+                            command=lambda: dataview.loadDES()
                             ).grid(column=1, row=5, **setup.pad20)
         button = ttk.Button(frame2,
-                            text="Update",
+                            text="Upload",
                             command=lambda: dataview.openUpload()
                             ).grid(column=0, row=5, **setup.pad20)
         Location_self = ttk.Button(window,

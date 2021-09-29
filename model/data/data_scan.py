@@ -25,7 +25,7 @@ class DataManager():
         header = ["ï»¿X", "Y", "FID", "id", "modified", "language", "rights", "rightsHolder", "bibliographicCitation", "institutionCode", "collectionCode", "basisOfRecord", "catalogNumber", "occurrenceRemarks", "individualID", "individualCount", "sex", "occurrenceStatus", "eventDate", "year", "waterBody",
                 "decimalLatitude", "decimalLongitude", "geodeticDatum", "coordinateUncertaintyInMeters", "footprintWKT", "georeferenceRemarks", "scientificNameID", "scientificName", "kingdom", "phylum", "class", "order_", "family", "genus", "subgenus", "specificEpithet", "infraspecificEpithet", "scientificNameAuthorship"]
         with open(currentFile, 'a', newline="") as targetData:
-            writer = csv.DictWriter(targetData, header)
+            writer = csv.DictWriter(targetData, header,extrasaction='ignore')
             for row in self.readFile(newFile):
                 writer.writerow(row)
 
