@@ -1,4 +1,4 @@
-from model.chart_create import draw_graph
+from view.chart_create import draw_graph
 import tkinter as tk
 from tkinter import ttk
 import view.setup as setup

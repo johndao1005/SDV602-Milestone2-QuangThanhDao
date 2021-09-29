@@ -1,4 +1,3 @@
-
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
@@ -8,6 +7,14 @@ from model.model import Model
 import geopandas as gpd
 
 def draw_graph(window, frame,dataview):
+    """Function used to draw the graph on the window depend on the current frame as well
+    as controlling the tool bar. the data is provided in the source from dataview.
+
+    Args:
+        window (variable): the frame to plot graph
+        frame (string): data type to be displayed on the graph      
+        dataview (variable): dataview window to control the data source as well as the reloading function
+    """
     database = Model(dataview.source)
     # ANCHOR prepare graph
     fig = Figure(figsize=(6, 6), dpi=100)
