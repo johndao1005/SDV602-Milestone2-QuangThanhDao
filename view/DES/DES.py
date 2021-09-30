@@ -1,3 +1,6 @@
+"""
+
+"""
 from view.chart_create import draw_graph
 import tkinter as tk
 from tkinter import ttk

@@ -18,7 +18,7 @@ class Login(Tk):
         option2 = setup.pad5
         self.resizable(0, 0)
         label = Label(self, text="Login").grid(
-            column=0, row=0, sticky=N, **options, columnspan=3)
+            column=0, row=0, sticky=N, **options, columnspan=3, font=setup.large)
         self.geometry("280x250+200+300")
         self.check = False
         # ANCHOR data input

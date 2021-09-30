@@ -5,6 +5,8 @@ import numpy as np
 from tkinter import *
 from model.model import Model
 import geopandas as gpd
+from matplotlib import style
+style.use("ggplot")
 
 def draw_graph(window, frame,dataview):
     """Function used to draw the graph on the window depend on the current frame as well
@@ -51,7 +53,7 @@ def draw_graph(window, frame,dataview):
         rects3 = ax.bar(x + width*3, size300, width, label='300 cm')
         rects4 = ax.bar(x + width*4, size350, width, label='350 cm')
         rects5 = ax.bar(x + width*5, size400, width, label='400 cm')
-        rects6 = ax.bar(x + width*5, sizeUnder440, width, label='Below 400 cm')
+        rects6 = ax.bar(x + width*6, sizeUnder440, width, label='Below 400 cm')
         rects7 = ax.bar(x + width*7, sizeAbove440, width, label='Above 440 cm')
         ax.set_xlabel('Year')
         ax.set_xticks(x)

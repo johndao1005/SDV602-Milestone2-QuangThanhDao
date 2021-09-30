@@ -45,6 +45,9 @@ class dataView(tk.Tk):
     # ANCHOR load all DES
     
     def loadDES(self,source=setup.datasource):
+        """
+        Load the data explorer screen with the given data source else load the default data source
+        """
         self.source = source
         for DES in (genderDES, locationDES, featureDES):
             frame = DES(self.container, self)
@@ -53,11 +56,18 @@ class dataView(tk.Tk):
         self.show_frame(featureDES)
         
     def show_frame(self, newFrame):
+        """moving between data explorer screen 
+
+        Args:
+            newFrame (object): the screen to be presented 
+        """
         frame = self.frames[newFrame]
         frame.tkraise()
 
     def uploadWindow(self):
         """
+        start a Top level window (pop up window) which attached to the Tk(main window)
+        
         """
         self.check = True
         self.upload = tk.Toplevel()
@@ -100,10 +110,14 @@ class dataView(tk.Tk):
         self.upload.mainloop()
         
     def openUpload(self):
+        """check if an instead of upload event is exist, then open the upload window
+        """
         if self.check == False:
             self.uploadWindow()
             
     def closeUpload(self):
+        """close the upload window and ensure the check if turn off to open new window
+        """
         self.check = False
         self.upload.destroy()
         
