@@ -1,5 +1,6 @@
 """
-
+Setup screen for each DES which is a frame to be displayed on main window dataview. DES is the template which handle displaying data as well as holding the buttons
+afterward each DES will inherit from DES but responsible for displaying different type of data and graph.
 """
 from view.chart_create import draw_graph
 import tkinter as tk
@@ -15,6 +16,12 @@ class DES(tk.Frame):
         tk.Frame.__init__(self, parent)
 
     def DES_setup(self,window, dataview):
+        """General setup for DES to be displayed 
+
+        Args:
+            window (variable): the frame or container which hold the 3 DES screen
+            dataview (object): The main window which responsible for main functionality and data source
+        """
         next = self.nextDES
         prev = self.prevDES
         frame = self.frametype
