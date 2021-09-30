@@ -1,5 +1,5 @@
 """
-Read csv file in data folder by defaul but also allow reading data from different file source 
+Read csv file in data-sample folder by defaul but also allow reading data from different file source provided with open-csv function or merge function
 """
 import csv
 from os import path
@@ -14,6 +14,7 @@ class DataManager():
         self.file = None
 
     def readFile(self, filePath):
+        
         with open(filePath, 'r', newline="") as data:
             dataset = csv.DictReader(data)
             output = []

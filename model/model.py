@@ -1,5 +1,6 @@
 """
-This is the Model class the super class of all Models
+Model class which contain method to get the raw data from csv DataManager, merge files or read the location data with pandas.
+After that filter the data in different catogeries with different methods such as featureData, locationData and genderData
 """
 from tkinter.constants import S
 from model.data.data_scan import DataManager
@@ -32,7 +33,7 @@ class Model():
             year = row['year']
             if year not in yearData and year != "":
                 yearData[year] = [0]*7
-            if year != "" and row['occurrenceRemarks'] != "":
+            if row['occurrenceRemarks'] != "":
                 featureData = row['occurrenceRemarks'].split(' ')
                 if featureData[0] == "Mature":
                     yearData[year][0] += 1
@@ -53,3 +54,4 @@ class Model():
     def locationData(self):
         locationData = self.dataManager.readLocation(self.dataSource)
         return locationData
+
