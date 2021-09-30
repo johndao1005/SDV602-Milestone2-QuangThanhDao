@@ -5,6 +5,7 @@ from view.chart_create import draw_graph
 import tkinter as tk
 from tkinter import ttk
 import view.setup as setup
+from controller.menu.logout import logout
 
 class DES(tk.Frame):
     def __init__(self, parent, controller):
@@ -17,7 +18,7 @@ class DES(tk.Frame):
         next = self.nextDES
         prev = self.prevDES
         frame = self.frametype
-        label = ttk.Label(window, text=f"White shark {frame} data").grid(
+        label = ttk.Label(window, text=f"White shark {frame} data",font=setup.large).grid(
             column=0, row=0, **setup.pad20, columnspan=3)
         # graph
         draw_graph(window, frame,dataview)
@@ -57,12 +58,12 @@ class DES(tk.Frame):
                             ).grid(column=0, row=5, **setup.pad20)
         Location_self = ttk.Button(window,
                                 text="Sign out",
-                                command=lambda: dataview.show_frame(next)
+                                command=lambda: logout(dataview)
                                 ).grid(column=2, row=4, **setup.pad20)
         button = ttk.Button(window,
                             text="Quit",
                             command=lambda: dataview.destroy()).grid(column=3, row=4, **setup.pad20)
-
+        
 # inherit from DES
 class genderDES(DES):
     def __init__(self,window, dataview):

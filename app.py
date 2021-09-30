@@ -4,13 +4,17 @@ With the application user can view data in graph with matplotlib while enjoy the
 
 """
 
-from view.dataView import dataView #dataView import dataView
+from view.login import Login 
 
+def start():
+    app = Login()
+    app.mainloop()
+    
 if __name__ == '__main__':
     """
     Initiate the app
     """
-    dataViewer = dataView()
-    dataViewer.mainloop()
+    from view.dataView import dataView
+    start()
     pass
     

@@ -58,7 +58,7 @@ def animate(i):
     # yList = []
     # for eachLine in dataList:
     #     if len(eachLine)>1:
-    #         x,y = eachLine.split(",")
+    #         x,y = eachLine.split(",")d
     #         xList.append(int(x))
     #         yList.append(int(y))
     # a.clear()

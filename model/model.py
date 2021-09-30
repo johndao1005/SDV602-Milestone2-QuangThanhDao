@@ -9,8 +9,6 @@ class Model():
     def __init__(self, dataSource=None):
         self.dataSource = dataSource
         self.dataManager = DataManager()
-        if dataSource != None:
-            csvFile = self.dataManager.readFile(dataSource)
 
     def merge(self, newFile, currentFile):
         self.dataManager.append(newFile, currentFile)
@@ -33,7 +31,7 @@ class Model():
             year = row['year']
             if year not in yearData and year != "":
                 yearData[year] = [0]*7
-            if row['occurrenceRemarks'] != "":
+            if year !="" and row['occurrenceRemarks'] != "":
                 featureData = row['occurrenceRemarks'].split(' ')
                 if featureData[0] == "Mature":
                     yearData[year][0] += 1
