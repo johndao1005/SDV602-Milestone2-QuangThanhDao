@@ -6,4 +6,4 @@ def logout(dataview):
     """
     from view.login import Login
     dataview.destroy()
-    Login()
+    Login().mainloop()

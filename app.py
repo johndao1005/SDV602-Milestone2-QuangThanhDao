@@ -9,12 +9,9 @@ from view.login import Login
 def start():
     app = Login()
     app.mainloop()
-    
 if __name__ == '__main__':
     """
     Initiate the app
     """
     from view.dataView import dataView
     start()
-    pass
-    

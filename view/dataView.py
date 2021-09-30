@@ -27,12 +27,12 @@ class dataView(tk.Tk):
         menubar = tk.Menu(self.container)
         filemenu = tk.Menu(menubar, tearoff=0)
         filemenu.add_command(label="Choose Data Source",
-                             command=lambda: selectFile("open", self))
+                            command=lambda: selectFile("open", self))
         filemenu.add_command(label="Merge database",
-                             command=lambda: self.openUpload())
+                            command=lambda: self.openUpload())
         filemenu.add_command(label="Sign out", command=lambda: logout(self))
         filemenu.add_separator()
-        filemenu.add_command(label="Exit", command=quit)
+        filemenu.add_command(label="Exit", command=self.destroy)
         DESmenu = tk.Menu(menubar, tearoff=0)
         DESmenu.add_command(
             label="Gender", command=lambda: self.show_frame(genderDES))
@@ -47,7 +47,6 @@ class dataView(tk.Tk):
         tk.Tk.config(self, menu=menubar)
         self.frames = {}
         self.loadDES()
-        self.mainloop()
     
     # ANCHOR load all DES
     def loadDES(self, source=setup.datasource):
@@ -73,7 +72,6 @@ class dataView(tk.Tk):
     def uploadWindow(self):
         """
         start a Top level window (pop up window) which attached to the Tk(main window)
-
         """
         self.check = True
         self.upload = tk.Toplevel()
@@ -113,7 +111,6 @@ class dataView(tk.Tk):
                               text="Quit",
                               command=lambda: self.closeUpload()
                               ).grid(column=2, row=4, **setup.pad10)
-        self.upload.mainloop()
 
     def openUpload(self):
         """check if an instead of upload event is exist, then open the upload window

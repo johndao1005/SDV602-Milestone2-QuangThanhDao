@@ -18,7 +18,7 @@ class Login(tk.Tk):
         self.resizable(0,0)
         label = ttk.Label(self, text="Login").grid(
             column=0, row=0, sticky="N", **options, columnspan=3)
-        self.geometry("280x250+200+300")
+        self.geometry("280x250+500+300")
         self.check = False
         # ANCHOR data input
         lf = ttk.Frame(
@@ -53,7 +53,6 @@ class Login(tk.Tk):
                               text="Quit",
                               command=lambda: self.destroy()
                               ).grid(column=2, row=4, **options)
-        self.mainloop()
 
     def callSignup(self):
         """The function check for any instance of signup and only create a sign up window if there is none
@@ -109,7 +108,6 @@ class Login(tk.Tk):
                             text="Cancel",
                             command=lambda: self.closeSignup()
                             ).grid(column=0, row=3, **options, sticky="SE")
-        self.signup.mainloop()
 
     def closeSignup(self):
         """This function make sure that the window is closed and allow to create new instance of Sign up window

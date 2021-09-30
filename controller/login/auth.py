@@ -1,3 +1,5 @@
+from tkinter.messagebox import showinfo, showerror
+
 def authentication(parent, name, pw=""):
     from view.dataView import dataView
     """Function to check the if username and password is correct then destroy the login window
@@ -7,5 +9,6 @@ def authentication(parent, name, pw=""):
             name (string): username from user input
             pw (string): password from user input
         """
+    showinfo("Welcome User", "Login successfully, Happy browsing!!")
     parent.destroy()
-    dataView()
+    dataView().mainloop()
