@@ -26,6 +26,7 @@ How to install .whl file?
 cd src
 pip install GDAL-3.3.2-cp39-cp39-win_amd64
 pip install Fiona-1.8.20-cp39-cp39-win_amd64
+pip install geopandas
 
 ```
 
