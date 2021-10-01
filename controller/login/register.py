@@ -1,3 +1,7 @@
+"""
+Creating new user after checking all the input. the user will be added into the remote data source and input the login details into the login window
+"""
+
 def makeUser(self,name,pw,pw2,email):
         """Checking input is valid and not already exist in the current database before creating new user instance
 

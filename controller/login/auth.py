@@ -1,3 +1,6 @@
+"""
+Process the given data from login view
+"""
 from tkinter.messagebox import showinfo, showerror
 
 def authentication(parent, name, pw=""):

@@ -1,3 +1,6 @@
+"""
+Contain the class Login which handle the login and signup view
+"""
 import tkinter as tk 
 from tkinter import ttk
 import view.setup as setup
@@ -6,10 +9,12 @@ from controller.login.register import makeUser
 
 class Login(tk.Tk):
     """Start an instance of login screen which allow user to sign up with top level window or login directly
-        When users login, the class would open to menu which is another class which handle the data view, update, delete while
-        destroy the current login to prevent multiple login.
-        """
+    When users login, the class would open to menu which is another class which handle the data view, update, delete while
+    destroy the current login to prevent multiple login.
+    """
     def __init__(self):
+        """Start the class which created the login view as soon as the class is called and start the mainloop
+        """
         tk.Tk.__init__(self)
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
@@ -61,6 +66,8 @@ class Login(tk.Tk):
             self.signupWindow()
 
     def signupWindow(self):
+        """Create top level window which is attached to login window as well as changing the self into True which only allow 1 instance of signup window
+        """
         self.check = True
         self.signup = tk.Toplevel()
         self.signup.title(setup.app_name)

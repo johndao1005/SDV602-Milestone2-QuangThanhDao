@@ -1,3 +1,6 @@
+"""
+Handle the open csv file to get the file path while making sure only csv file is selected
+"""
 from tkinter import filedialog as fd
 from tkinter.messagebox import showinfo
 from tkinter import *

@@ -1,5 +1,5 @@
-"""Data Explore Screen
-This is the main window which will display all the data regarding the datasource as long as the data is suitable.
+"""
+Contain the dataView class which handle the DES window outline as well as upload window view
 """
 import tkinter as tk
 from tkinter import ttk
@@ -12,7 +12,13 @@ from view.DES.DES import genderDES, locationDES, featureDES
 
 
 class dataView(tk.Tk):
+    """Data Explore Screen
+    This is the main window which will display all the data regarding the datasource as long as the data is suitable.
+    """
     def __init__(self, *args, **kwargs):
+        """
+        start the instance of dataView main window when it is called 
+        """
         tk.Tk.__init__(self, *args, **kwargs)
         self.resizable(0,0)
         self.geometry("940x800+0+0")

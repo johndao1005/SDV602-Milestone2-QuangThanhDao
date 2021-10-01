@@ -1,3 +1,6 @@
+"""
+Handle the function to draw graph to display on the corespond DES which take raw data from defaul source or selectFile then take the filter data from Model to display with suitable graph
+"""
 from matplotlib.backends.backend_tkagg import (
     FigureCanvasTkAgg, NavigationToolbar2Tk)
 from matplotlib.figure import Figure
@@ -105,8 +108,3 @@ def draw_graph(window, frame,dataview):
     canvas.get_tk_widget().grid(column=0, row=1, rowspan=4)  # create canvas
     toolbar.grid(column=0, row=6)  # create tool bar
 
-
-if __name__ == "__main__":
-    root = Tk()
-    draw_graph(root, "location")
-    root.mainloop()

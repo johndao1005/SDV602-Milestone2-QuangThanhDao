@@ -6,14 +6,32 @@ from tkinter.constants import S
 from model.data.data_scan import DataManager
 
 class Model():
+    """Handle the data filter read and merge datasource
+    """
     def __init__(self, dataSource=None):
+        """Start the model class which take the data source provided as argurement as well as get the DataManager class to use the method attached to the Data
+
+        Args:
+            dataSource (string, optional): Get the data source to be analyzed. Defaults to None.
+        """
         self.dataSource = dataSource
         self.dataManager = DataManager()
 
     def merge(self, newFile, currentFile):
+        """Excute the append method of data manager class taking the 2 file paths
+
+        Args:
+            newFile (string): path to the target file
+            currentFile (string): path to the source file
+        """
         self.dataManager.append(newFile, currentFile)
 
     def genderData(self):
+        """return the gender data from the data source provided in the model parameter
+
+        Returns:
+            dictionary: contain the gender as the key and the corespond integer value
+        """
         data = self.dataManager.readFile(self.dataSource)
         male = 0
         female = 0
@@ -25,6 +43,11 @@ class Model():
         return {"Male": male, "Female": female}
 
     def featureData(self):
+        """return the feature data from the data source provided in the model parameter
+
+        Returns:
+            dictionary: contain the year as the key and the value as array for each category belong to their index
+        """
         data = self.dataManager.readFile(self.dataSource)
         yearData = dict()
         for row in data:
@@ -50,6 +73,11 @@ class Model():
         return yearData
 
     def locationData(self):
+        """read the location data from the data source provided in the model parameter
+
+        Returns:
+            pd format data : latitude and longtitude pair value
+        """
         locationData = self.dataManager.readLocation(self.dataSource)
         return locationData
 
