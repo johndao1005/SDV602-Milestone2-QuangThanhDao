@@ -6,7 +6,6 @@ from view.chart_create import draw_graph
 import tkinter as tk
 from tkinter import ttk
 import view.setup as setup
-from controller.menu.logout import logout
 
 class DES(tk.Frame):
     def __init__(self, parent, controller):
@@ -63,14 +62,6 @@ class DES(tk.Frame):
                             text="Upload",
                             command=lambda: dataview.openUpload()
                             ).grid(column=0, row=5, **setup.pad20)
-        Location_self = ttk.Button(window,
-                                text="Sign out",
-                                command=lambda: logout(dataview)
-                                ).grid(column=2, row=4, **setup.pad20)
-        button = ttk.Button(window,
-                            text="Quit",
-                            command=lambda: dataview.destroy()).grid(column=3, row=4, **setup.pad20)
-        
 # inherit from DES
 class genderDES(DES):
     def __init__(self,window, dataview):

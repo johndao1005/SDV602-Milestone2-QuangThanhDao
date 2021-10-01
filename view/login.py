@@ -9,8 +9,8 @@ class Login(tk.Tk):
         When users login, the class would open to menu which is another class which handle the data view, update, delete while
         destroy the current login to prevent multiple login.
         """
-    def __init__(self, *args, **kwargs):
-        tk.Tk.__init__(self, *args, **kwargs)
+    def __init__(self):
+        tk.Tk.__init__(self)
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
         options = setup.pad10

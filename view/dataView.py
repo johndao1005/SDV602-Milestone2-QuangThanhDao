@@ -3,6 +3,7 @@ This is the main window which will display all the data regarding the datasource
 """
 import tkinter as tk
 from tkinter import ttk
+from tkinter.messagebox import showinfo
 import view.setup as setup
 from controller.menu.logout import logout
 from controller.menu.merge_csv import mergeFiles
@@ -14,15 +15,16 @@ class dataView(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
         self.resizable(0,0)
-        self.geometry("940x740+0+0")
-        # ANCHOR frame setup
-        self.container = tk.Frame()
-        self.container.grid(column=0, row=0)
-        self.container.grid_rowconfigure(0, weight=1)
-        self.container.grid_columnconfigure(0, weight=1)
+        self.geometry("940x800+0+0")
         self.title(setup.app_name)
         self.iconbitmap(setup.icon)
         self.check = False
+        self.protocol("WM_DELETE_WINDOW", self.quit)
+        # ANCHOR frame setup
+        self.container = ttk.Frame()
+        self.container.grid(column=0, row=0,columnspan=4)
+        self.container.grid_rowconfigure(0, weight=1)
+        self.container.grid_columnconfigure(0, weight=1)
         # ANCHOR menubar setup
         menubar = tk.Menu(self.container)
         filemenu = tk.Menu(menubar, tearoff=0)
@@ -30,9 +32,9 @@ class dataView(tk.Tk):
                             command=lambda: selectFile("open", self))
         filemenu.add_command(label="Merge database",
                             command=lambda: self.openUpload())
-        filemenu.add_command(label="Sign out", command=lambda: logout(self))
+        filemenu.add_command(label="Sign out", command=lambda: showinfo("Unavailable","Function is not available, please come back for it later"))
         filemenu.add_separator()
-        filemenu.add_command(label="Exit", command=self.destroy)
+        filemenu.add_command(label="Exit", command=self.quit)
         DESmenu = tk.Menu(menubar, tearoff=0)
         DESmenu.add_command(
             label="Gender", command=lambda: self.show_frame(genderDES))
@@ -47,7 +49,15 @@ class dataView(tk.Tk):
         tk.Tk.config(self, menu=menubar)
         self.frames = {}
         self.loadDES()
-    
+        button_frame = tk.Frame().grid(column=2, row=2,sticky="NE")
+        button = ttk.Button(button_frame,
+                            text="Quit",
+                            command=lambda: self.quit() ).grid(column=3, row=1,)
+        Location_self = ttk.Button(button_frame,
+                                text="Sign out",
+                                command=lambda: logout(self)
+                                ).grid(column=2, row=1)
+        
     # ANCHOR load all DES
     def loadDES(self, source=setup.datasource):
         """

@@ -5,13 +5,14 @@ With the application user can view data in graph with matplotlib while enjoy the
 """
 
 from view.login import Login 
-
+app = Login()
 def start():
-    app = Login()
     app.mainloop()
+
 if __name__ == '__main__':
     """
     Initiate the app
     """
     from view.dataView import dataView
+    #dataView().mainloop()
     start()

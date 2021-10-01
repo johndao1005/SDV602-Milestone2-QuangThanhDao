@@ -11,4 +11,4 @@ def authentication(parent, name, pw=""):
         """
     showinfo("Welcome User", "Login successfully, Happy browsing!!")
     parent.destroy()
-    dataView().mainloop()
+    dataView()
